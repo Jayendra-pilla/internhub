@@ -84,10 +84,10 @@ This link expires in 15 minutes. If you did not request a password reset, you ca
     msg.attach(MIMEText(html_body, "html"))
 
     await aiosmtplib.send(
-        msg,
-        hostname="smtp.gmail.com",
-        port=587,
-        start_tls=True,
-        username=EMAIL_USER,
-        password=EMAIL_PASS,
-    )
+    msg,
+    hostname="smtp.gmail.com",
+    port=465,
+    use_tls=True,
+    username=EMAIL_USER,
+    password=EMAIL_PASS,
+)
