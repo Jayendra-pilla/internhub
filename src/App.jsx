@@ -17,7 +17,7 @@ import ResetPassword from "./pages/ResetPassword";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
-const API = "http://127.0.0.1:8000";
+const API = "https://internhub-gbuo.onrender.com";
 
 function App() {
   const [applications, setApplications] = useState([]);

@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
-const API = "http://127.0.0.1:8000";
+const API = "https://internhub-gbuo.onrender.com";
 
 // Password strength helper
 const getStrength = (pwd) => {
     let score = 0;
-    if (pwd.length >= 6)  score++;
+    if (pwd.length >= 6) score++;
     if (pwd.length >= 10) score++;
     if (/[A-Z]/.test(pwd)) score++;
     if (/[0-9]/.test(pwd)) score++;

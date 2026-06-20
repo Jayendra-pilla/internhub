@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 
-const API = "http://127.0.0.1:8000";
+const API = "https://internhub-gbuo.onrender.com";
 const CATEGORIES = ["All", "Frontend", "Backend", "Fullstack", "Design", "Data"];
 
 /* ── Toast ─────────────────────────────────────────────────────── */

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const API = "http://127.0.0.1:8000";
+const API = "https://internhub-gbuo.onrender.com";
 
 function Register() {
     const navigate = useNavigate();
