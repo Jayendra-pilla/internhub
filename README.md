@@ -1,6 +1,6 @@
 # 🚀 InternHub – Full Stack Internship Management System
 
-InternHub is a modern full-stack internship management platform that connects students with internship opportunities. The platform enables users to register, upload resumes, apply for internships, track application status, manage profiles, and receive password reset emails. It also provides an admin dashboard for managing internships and applications.
+InternHub is a modern full-stack internship management platform that connects students with internship opportunities. The platform enables users to register, upload resumes, apply for internships, track application status, manage profiles, and access a personalized dashboard. It also provides an admin panel for managing internships and applications.
 
 ---
 
@@ -9,35 +9,6 @@ InternHub is a modern full-stack internship management platform that connects st
 **Frontend:** https://internhub-mocha.vercel.app
 
 **Backend API:** https://internhub-gbuo.onrender.com
-
----
-
-
-### Home Page
-
-* Modern landing page
-* Internship discovery platform
-* Responsive UI
-
-### Dashboard
-
-* Total Applications
-* Pending Applications
-* Under Review Applications
-* Accepted Applications
-* Rejected Applications
-
-### Admin Panel
-
-* Manage internships
-* View applications
-* Update application status
-
-### Profile Page
-
-* Resume upload
-* Resume PDF preview
-* Password management
 
 ---
 
@@ -50,6 +21,7 @@ InternHub is a modern full-stack internship management platform that connects st
 * Protected Routes
 * Browse Available Internships
 * Search & Filter Internships
+* Pagination Support
 * Apply for Internships
 * Application Tracking
 * Dashboard Analytics
@@ -57,8 +29,6 @@ InternHub is a modern full-stack internship management platform that connects st
 * Resume PDF Preview
 * Profile Management
 * Change Password
-* Forgot Password
-* Password Reset via Email
 
 ### 👨‍💼 Admin Features
 
@@ -78,8 +48,7 @@ InternHub is a modern full-stack internship management platform that connects st
 * Password Hashing
 * Protected API Routes
 * Role-Based Authorization
-* Secure Password Reset Tokens
-* Email Verification Flow
+* Secure User Authentication
 
 ---
 
@@ -107,18 +76,6 @@ Users can:
 
 ---
 
-## 📧 Email Functionality
-
-InternHub includes email integration for:
-
-* Password Reset Requests
-* Secure Reset Links
-* Email-Based Account Recovery
-
-Powered by Gmail SMTP and FastAPI backend services.
-
----
-
 ## 🛠️ Tech Stack
 
 ### Frontend
@@ -135,7 +92,6 @@ Powered by Gmail SMTP and FastAPI backend services.
 * FastAPI
 * Python
 * JWT Authentication
-* SMTP Email Service
 * REST APIs
 
 ### Database
@@ -162,7 +118,6 @@ internhub/
 │
 ├── backend/
 │   ├── database.py
-│   ├── email_utils.py
 │   ├── main.py
 │   ├── requirements.txt
 │   └── .env
@@ -181,8 +136,6 @@ internhub/
 │   │   ├── Internships.jsx
 │   │   ├── Profile.jsx
 │   │   ├── Admin.jsx
-│   │   ├── ForgotPassword.jsx
-│   │   ├── ResetPassword.jsx
 │   │   └── NotFound.jsx
 │   │
 │   ├── App.jsx
@@ -246,10 +199,6 @@ CLOUDINARY_API_KEY=your_api_key
 
 CLOUDINARY_API_SECRET=your_api_secret
 
-EMAIL_USER=your_email
-
-EMAIL_PASS=your_email_password
-
 SECRET_KEY=your_secret_key
 
 FRONTEND_URL=http://localhost:5174
@@ -297,8 +246,8 @@ MongoDB Atlas Cloud Database
 * React Frontend Development
 * Cloud Deployment
 * Git & GitHub Workflow
-* Email Service Integration
 * Resume File Handling
+* Role-Based Access Control
 
 ---
 
@@ -309,7 +258,7 @@ MongoDB Atlas Cloud Database
 * Resume–Job Matching
 * Company Portal
 * Interview Scheduling
-* Email Notifications for Status Updates
+* Email Notifications for Application Status
 * Analytics Dashboard
 * GitHub OAuth Login
 * Docker Containerization
