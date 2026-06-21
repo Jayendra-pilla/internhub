@@ -112,10 +112,7 @@ function Login({ onLogin }) {
                     </div>
 
                     <div className="form-group">
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <label className="form-label" htmlFor="login-password">Password</label>
-                            <Link to="/forgot-password" className="auth-link-sm" id="forgot-password-link">Forgot password?</Link>
-                        </div>
+                        <label className="form-label" htmlFor="login-password">Password</label>
                         <div className="input-icon-wrap">
                             <span className="input-icon">🔒</span>
                             <input

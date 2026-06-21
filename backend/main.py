@@ -10,11 +10,9 @@ import datetime
 import os
 import io
 import asyncio
-import secrets
 import cloudinary
 import cloudinary.uploader
 from dotenv import load_dotenv
-from email_utils import send_reset_email
 
 load_dotenv()
 
@@ -163,15 +161,6 @@ class RoleUpdate(BaseModel):
     role: str
 
 
-class ForgotPasswordRequest(BaseModel):
-    email: str
-
-
-class ResetPasswordRequest(BaseModel):
-    token: str
-    new_password: str
-    confirm_password: str
-
 
 class ProfileUpdate(BaseModel):
     name: Optional[str] = None
@@ -243,66 +232,10 @@ async def login(user: UserLogin):
     }
 
 
-# ── Forgot Password ───────────────────────────────────────────────────────────
-
-@app.post("/forgot-password")
-async def forgot_password(body: ForgotPasswordRequest):
-    """Generate a reset token and email it. Always returns 200 to prevent email enumeration."""
-    email = body.email.strip().lower()
-
-    # Always return the same success message regardless of whether the email exists
-    user = await users_collection.find_one({"email": email})
-    if user:
-        token = secrets.token_urlsafe(32)
-        expiry = datetime.datetime.utcnow() + datetime.timedelta(minutes=15)
-        await users_collection.update_one(
-            {"email": email},
-            {"$set": {"reset_token": token, "reset_token_expiry": expiry}}
-        )
-        try:
-            await send_reset_email(email, token)
-        except Exception as e:
-            print(f"❌ Failed to send reset email: {e}")
-            raise HTTPException(status_code=500, detail="Failed to send reset email. Please try again.")
-
-    return {"message": "If that email is registered, you will receive a password reset link shortly."}
-
-
-@app.post("/reset-password")
-async def reset_password(body: ResetPasswordRequest):
-    """Verify reset token and update the user's password."""
-    if not body.new_password or len(body.new_password) < 6:
-        raise HTTPException(status_code=400, detail="Password must be at least 6 characters.")
-    if body.new_password != body.confirm_password:
-        raise HTTPException(status_code=400, detail="Passwords do not match.")
-
-    user = await users_collection.find_one({"reset_token": body.token})
-    if not user:
-        raise HTTPException(status_code=400, detail="Invalid or expired reset link. Please request a new one.")
-
-    expiry = user.get("reset_token_expiry")
-    if not expiry or datetime.datetime.utcnow() > expiry:
-        # Clean up expired token
-        await users_collection.update_one(
-            {"reset_token": body.token},
-            {"$unset": {"reset_token": "", "reset_token_expiry": ""}}
-        )
-        raise HTTPException(status_code=400, detail="Reset link has expired. Please request a new one.")
-
-    hashed = hash_password(body.new_password)
-    await users_collection.update_one(
-        {"reset_token": body.token},
-        {
-            "$set": {"password": hashed},
-            "$unset": {"reset_token": "", "reset_token_expiry": ""}
-        }
-    )
-    return {"message": "Password reset successful. You can now log in with your new password."}
-
 
 # ── Profile ────────────────────────────────────────────────────────────────
 
-SAFE_PROFILE_FIELDS = {"password": 0, "reset_token": 0, "reset_token_expiry": 0}
+SAFE_PROFILE_FIELDS = {"password": 0}
 
 
 @app.get("/profile")
